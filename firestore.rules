@@ -1,0 +1,357 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global default-deny safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Hardened primitive helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isVerifiedAdminEmail() {
+      return isSignedIn() &&
+             'email' in request.auth.token &&
+             'email_verified' in request.auth.token &&
+             request.auth.token.email_verified == true &&
+             request.auth.token.email == 'fokoufdr@gmail.com';
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        isVerifiedAdminEmail() ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    // Standalone entity validation blueprint for UserProfile (supports core + role onboarding + accountStatus)
+    function isValidUserProfile(data) {
+      return data.userId is string && data.userId.size() >= 1 && data.userId.size() <= 128 && data.userId.matches('^[a-zA-Z0-9_\\-]+$') &&
+             data.displayName is string && data.displayName.size() >= 1 && data.displayName.size() <= 100 &&
+             data.email is string && data.email.size() <= 200 &&
+             data.headline is string && data.headline.size() <= 160 &&
+             data.bio is string && data.bio.size() <= 1000 &&
+             data.location is string && data.location.size() <= 120 &&
+             data.roleTitle is string && data.roleTitle.size() <= 120 &&
+             data.website is string && data.website.size() <= 250 &&
+             data.statusMessage is string && data.statusMessage.size() <= 160 &&
+             data.photoUrl is string && data.photoUrl.size() <= 500 &&
+             (!('actorRole' in data) || (data.actorRole is string && data.actorRole in ['ADMIN', 'VISITOR', 'STUDENT', 'TEACHER', 'SCHOOL', 'PARENT'])) &&
+             (!('accountStatus' in data) || (data.accountStatus is string && data.accountStatus in ['ACTIVE', 'PENDING', 'SUSPENDED', 'BLOCKED'])) &&
+             (!('onboardingCompleted' in data) || (data.onboardingCompleted is bool)) &&
+             (!('educationSystem' in data) || (data.educationSystem is string && data.educationSystem.size() <= 60)) &&
+             (!('studentLevel' in data) || (data.studentLevel is string && data.studentLevel.size() <= 60)) &&
+             (!('studentStream' in data) || (data.studentStream is string && data.studentStream.size() <= 60)) &&
+             (!('studentSeries' in data) || (data.studentSeries is string && data.studentSeries.size() <= 100)) &&
+             (!('selectedSubjects' in data) || (data.selectedSubjects is string && data.selectedSubjects.size() <= 1200)) &&
+             (!('schoolName' in data) || (data.schoolName is string && data.schoolName.size() <= 200)) &&
+             (!('schoolOwnership' in data) || (data.schoolOwnership is string && data.schoolOwnership.size() <= 40)) &&
+             (!('schoolAge' in data) || (data.schoolAge is string && data.schoolAge.size() <= 40)) &&
+             (!('schoolEmail' in data) || (data.schoolEmail is string && data.schoolEmail.size() <= 200)) &&
+             (!('schoolFacebookUrl' in data) || (data.schoolFacebookUrl is string && data.schoolFacebookUrl.size() <= 300)) &&
+             (!('teachingYears' in data) || (data.teachingYears is string && data.teachingYears.size() <= 40)) &&
+             (!('teacherSchools' in data) || (data.teacherSchools is string && data.teacherSchools.size() <= 500)) &&
+             (!('pseudonym' in data) || (data.pseudonym is string && data.pseudonym.size() <= 100)) &&
+             (!('phoneNumbers' in data) || (data.phoneNumbers is string && data.phoneNumbers is string && data.phoneNumbers.size() <= 500)) &&
+             (!('childIds' in data) || (data.childIds is string && data.childIds.size() <= 600)) &&
+             data.createdAt is timestamp && data.createdAt <= request.time &&
+             data.updatedAt is timestamp && data.updatedAt <= request.time;
+    }
+
+    // Standalone entity validation blueprint for AppActivity (includes DB security & IP telemetry)
+    function isValidAppActivity(data) {
+      return data.activityId is string && data.activityId.size() >= 1 && data.activityId.size() <= 128 && data.activityId.matches('^[a-zA-Z0-9_\\-]+$') &&
+             data.userId is string && data.userId.size() >= 1 && data.userId.size() <= 128 && data.userId.matches('^[a-zA-Z0-9_\\-]+$') &&
+             data.userDisplayName is string && data.userDisplayName.size() >= 1 && data.userDisplayName.size() <= 100 &&
+             data.userEmail is string && data.userEmail.size() <= 200 &&
+             data.eventType is string && data.eventType in [
+               'AUTH_SIGN_IN',
+               'PROFILE_CREATED',
+               'ROLE_ONBOARDING_COMPLETED',
+               'STUDENT_ASSESSMENT_LOGGED',
+               'STUDENT_ORIENTATION_ANALYZED',
+               'PROFILE_UPDATED',
+               'STATUS_CHANGED',
+               'AI_ADVISOR_RUN',
+               'AI_SUGGESTION_APPLIED',
+               'ADMIN_AUDIT_ACTION',
+               'USER_ROLE_CHANGED',
+               'USER_STATUS_CHANGED',
+               'USER_DELETED',
+               'DB_CONNECTION_ATTEMPT',
+               'DB_OPERATION_SUCCESS',
+               'DB_OPERATION_FAILURE',
+               'DB_INJECTION_BLOCKED',
+               'AUTH_SIGN_OUT'
+             ] &&
+             data.title is string && data.title.size() >= 1 && data.title.size() <= 160 &&
+             data.details is string && data.details.size() <= 1000 &&
+             data.severity is string && data.severity in ['INFO', 'SUCCESS', 'HIGHLIGHT', 'SECURITY'] &&
+             data.reviewStatus is string && data.reviewStatus in ['RECORDED', 'REVIEWED', 'FLAGGED'] &&
+             (!('ipAddress' in data) || (data.ipAddress is string && data.ipAddress.size() <= 100)) &&
+             (!('targetPath' in data) || (data.targetPath is string && data.targetPath.size() <= 200)) &&
+             (!('dbStatus' in data) || (data.dbStatus is string && data.dbStatus.size() <= 60)) &&
+             data.createdAt is timestamp && data.createdAt <= request.time &&
+             data.updatedAt is timestamp && data.updatedAt <= request.time;
+    }
+
+    // Standalone entity validation blueprint for AdminRecord
+    function isValidAdminRecord(data) {
+      return data.adminId is string && data.adminId.size() >= 1 && data.adminId.size() <= 128 && data.adminId.matches('^[a-zA-Z0-9_\\-]+$') &&
+             data.email is string && data.email.size() >= 1 && data.email.size() <= 200 &&
+             data.role is string && data.role in ['SUPER_ADMIN', 'AUDITOR'] &&
+             data.grantedBy is string && data.grantedBy.size() >= 1 && data.grantedBy.size() <= 128 && data.grantedBy.matches('^[a-zA-Z0-9_\\-]+$') &&
+             data.createdAt is timestamp && data.createdAt <= request.time &&
+             data.updatedAt is timestamp && data.updatedAt <= request.time;
+    }
+
+    match /users/{userId} {
+      allow get: if isSignedIn() && isValidId(userId) && (request.auth.uid == userId || isAdmin());
+      allow list: if isSignedIn() && (existing().userId == request.auth.uid || isAdmin());
+
+      allow create: if isSignedIn() &&
+                       isValidId(userId) &&
+                       (request.auth.uid == userId || isAdmin()) &&
+                       incoming().userId == userId &&
+                       incoming().keys().hasAll([
+                         'userId', 'displayName', 'email', 'headline', 'bio',
+                         'location', 'roleTitle', 'website', 'statusMessage',
+                         'photoUrl', 'createdAt', 'updatedAt'
+                       ]) &&
+                       incoming().keys().hasOnly([
+                         'userId', 'displayName', 'email', 'headline', 'bio',
+                         'location', 'roleTitle', 'website', 'statusMessage',
+                         'photoUrl', 'actorRole', 'accountStatus', 'onboardingCompleted',
+                         'educationSystem', 'studentLevel', 'studentStream',
+                         'studentSeries', 'selectedSubjects',
+                         'schoolName', 'schoolOwnership', 'schoolAge',
+                         'schoolEmail', 'schoolFacebookUrl', 'teachingYears',
+                         'teacherSchools', 'pseudonym', 'phoneNumbers',
+                         'childIds', 'createdAt', 'updatedAt'
+                       ]) &&
+                       isValidUserProfile(incoming());
+
+      allow update: if (
+        isSignedIn() && isValidUserProfile(incoming()) && (
+          (
+            isValidId(userId) &&
+            request.auth.uid == userId &&
+            (!('accountStatus' in existing()) || existing().accountStatus == 'ACTIVE') &&
+            incoming().userId == existing().userId &&
+            incoming().createdAt == existing().createdAt &&
+            incoming().diff(existing()).affectedKeys().hasOnly([
+              'displayName', 'email', 'headline', 'bio',
+              'location', 'roleTitle', 'website', 'statusMessage',
+              'photoUrl', 'actorRole', 'accountStatus', 'onboardingCompleted',
+              'educationSystem', 'studentLevel', 'studentStream',
+              'studentSeries', 'selectedSubjects',
+              'schoolName', 'schoolOwnership', 'schoolAge',
+              'schoolEmail', 'schoolFacebookUrl', 'teachingYears',
+              'teacherSchools', 'pseudonym', 'phoneNumbers',
+              'childIds', 'updatedAt'
+            ])
+          ) ||
+          (
+            isValidId(userId) &&
+            isAdmin() &&
+            incoming().userId == existing().userId &&
+            incoming().createdAt == existing().createdAt &&
+            incoming().diff(existing()).affectedKeys().hasOnly([
+              'displayName', 'email', 'headline', 'bio',
+              'location', 'roleTitle', 'website', 'statusMessage',
+              'photoUrl', 'actorRole', 'accountStatus', 'onboardingCompleted',
+              'educationSystem', 'studentLevel', 'studentStream',
+              'studentSeries', 'selectedSubjects',
+              'schoolName', 'schoolOwnership', 'schoolAge',
+              'schoolEmail', 'schoolFacebookUrl', 'teachingYears',
+              'teacherSchools', 'pseudonym', 'phoneNumbers',
+              'childIds', 'updatedAt'
+            ])
+          )
+        )
+      );
+
+      allow delete: if isSignedIn() && isValidId(userId) && (request.auth.uid == userId || isAdmin());
+    }
+
+    match /activities/{activityId} {
+      allow get: if isSignedIn() && isValidId(activityId) && ((resource != null && existing().userId == request.auth.uid) || isAdmin());
+      allow list: if isSignedIn() && (existing().userId == request.auth.uid || isAdmin());
+
+      allow create: if isSignedIn() &&
+                       isValidId(activityId) &&
+                       incoming().activityId == activityId &&
+                       incoming().userId == request.auth.uid &&
+                       incoming().reviewStatus == 'RECORDED' &&
+                       incoming().keys().hasAll([
+                         'activityId', 'userId', 'userDisplayName', 'userEmail',
+                         'eventType', 'title', 'details', 'severity',
+                         'reviewStatus', 'createdAt', 'updatedAt'
+                       ]) &&
+                       incoming().keys().hasOnly([
+                         'activityId', 'userId', 'userDisplayName', 'userEmail',
+                         'eventType', 'title', 'details', 'severity',
+                         'reviewStatus', 'ipAddress', 'targetPath', 'dbStatus',
+                         'createdAt', 'updatedAt'
+                       ]) &&
+                       isValidAppActivity(incoming());
+
+      allow update: if (
+        isSignedIn() && isValidAppActivity(incoming()) && (
+          (
+            isValidId(activityId) &&
+            request.auth.uid == existing().userId &&
+            existing().reviewStatus == 'RECORDED' &&
+            incoming().activityId == existing().activityId &&
+            incoming().userId == existing().userId &&
+            incoming().eventType == existing().eventType &&
+            incoming().reviewStatus == existing().reviewStatus &&
+            incoming().createdAt == existing().createdAt &&
+            incoming().diff(existing()).affectedKeys().hasOnly([
+              'details', 'updatedAt'
+            ])
+          ) ||
+          (
+            isValidId(activityId) &&
+            isAdmin() &&
+            incoming().activityId == existing().activityId &&
+            incoming().userId == existing().userId &&
+            incoming().createdAt == existing().createdAt &&
+            incoming().diff(existing()).affectedKeys().hasOnly([
+              'reviewStatus', 'severity', 'details', 'updatedAt'
+            ])
+          )
+        )
+      );
+
+      allow delete: if isSignedIn() && isValidId(activityId) && isAdmin();
+    }
+
+    match /admins/{adminId} {
+      allow get: if isSignedIn() && isValidId(adminId) && (request.auth.uid == adminId || isAdmin());
+      allow list: if isAdmin();
+
+      allow create: if isSignedIn() &&
+                       isValidId(adminId) &&
+                       incoming().adminId == adminId &&
+                       incoming().keys().hasAll([
+                         'adminId', 'email', 'role', 'grantedBy', 'createdAt', 'updatedAt'
+                       ]) &&
+                       incoming().keys().hasOnly([
+                         'adminId', 'email', 'role', 'grantedBy', 'createdAt', 'updatedAt'
+                       ]) &&
+                       isValidAdminRecord(incoming()) &&
+                       isAdmin();
+
+      allow update: if (
+        isSignedIn() && isValidAdminRecord(incoming()) && (
+          isValidId(adminId) &&
+          isAdmin() &&
+          incoming().adminId == existing().adminId &&
+          incoming().createdAt == existing().createdAt &&
+          incoming().diff(existing()).affectedKeys().hasOnly([
+            'email', 'role', 'updatedAt'
+          ])
+        )
+      );
+
+      allow delete: if isSignedIn() && isValidId(adminId) && isAdmin();
+    }
+
+    function isValidCurriculumSubject(data) {
+      return data.subjectId is string && data.subjectId.size() >= 1 && data.subjectId.size() <= 128 &&
+             data.code is string && data.code.size() >= 1 && data.code.size() <= 40 &&
+             data.name is string && data.name.size() >= 1 && data.name.size() <= 160 &&
+             data.coefficient is int && data.coefficient >= 1 && data.coefficient <= 20 &&
+             data.category is string && data.category.size() >= 1 && data.category.size() <= 80 &&
+             data.systemCode is string && data.systemCode.size() >= 1 && data.systemCode.size() <= 60 &&
+             data.levelCode is string && data.levelCode.size() >= 1 && data.levelCode.size() <= 60 &&
+             data.streamCode is string && data.streamCode.size() >= 1 && data.streamCode.size() <= 60 &&
+             data.seriesCode is string && data.seriesCode.size() <= 80 &&
+             data.seriesName is string && data.seriesName.size() <= 120 &&
+             data.description is string && data.description.size() <= 1000 &&
+             data.createdByEmail is string && data.createdByEmail.size() <= 200 &&
+             data.createdAt is timestamp &&
+             data.updatedAt is timestamp &&
+             data.updatedAt == request.time;
+    }
+
+    function isValidRevisionBafendDocument(data) {
+      return data.docId is string && data.docId.size() >= 1 && data.docId.size() <= 128 &&
+             data.title is string && data.title.size() >= 1 && data.title.size() <= 200 &&
+             data.description is string && data.description.size() <= 1500 &&
+             data.systemCode is string && data.systemCode.size() >= 1 && data.systemCode.size() <= 60 &&
+             data.levelCode is string && data.levelCode.size() >= 1 && data.levelCode.size() <= 60 &&
+             data.streamCode is string && data.streamCode.size() >= 1 && data.streamCode.size() <= 60 &&
+             data.seriesCode is string && data.seriesCode.size() <= 80 &&
+             data.subjectCode is string && data.subjectCode.size() >= 1 && data.subjectCode.size() <= 40 &&
+             data.subjectName is string && data.subjectName.size() >= 1 && data.subjectName.size() <= 160 &&
+             data.subjectCategory is string && data.subjectCategory.size() <= 80 &&
+             data.coefficient is int && data.coefficient >= 1 && data.coefficient <= 20 &&
+             data.originalPdfName is string && data.originalPdfName.size() >= 1 && data.originalPdfName.size() <= 240 &&
+             data.bafendFileName is string && data.bafendFileName.size() >= 7 && data.bafendFileName.size() <= 240 &&
+             data.bafendFileName.matches('.*\\.bafend$') &&
+             data.pageCount is int && data.pageCount >= 1 && data.pageCount <= 2000 &&
+             data.fileSizeBytes is int && data.fileSizeBytes >= 1 &&
+             data.bafendBase64Payload is string && data.bafendBase64Payload.size() <= 900000 &&
+             data.uploadedByEmail is string && data.uploadedByEmail.size() <= 200 &&
+             data.createdAt is timestamp &&
+             data.updatedAt is timestamp &&
+             data.updatedAt == request.time;
+    }
+
+    match /curriculum_subjects/{subjectId} {
+      allow get, list: if isSignedIn();
+
+      allow create: if isSignedIn() &&
+                       isValidId(subjectId) &&
+                       isAdmin() &&
+                       incoming().subjectId == subjectId &&
+                       incoming().createdAt == request.time &&
+                       isValidCurriculumSubject(incoming());
+
+      allow update: if isSignedIn() &&
+                       isValidId(subjectId) &&
+                       isAdmin() &&
+                       incoming().subjectId == existing().subjectId &&
+                       incoming().createdAt == existing().createdAt &&
+                       isValidCurriculumSubject(incoming());
+
+      allow delete: if isSignedIn() && isValidId(subjectId) && isAdmin();
+    }
+
+    match /revision_documents/{docId} {
+      allow get, list: if isSignedIn();
+
+      allow create: if isSignedIn() &&
+                       isValidId(docId) &&
+                       isAdmin() &&
+                       incoming().docId == docId &&
+                       incoming().createdAt == request.time &&
+                       isValidRevisionBafendDocument(incoming());
+
+      allow update: if isSignedIn() &&
+                       isValidId(docId) &&
+                       isAdmin() &&
+                       incoming().docId == existing().docId &&
+                       incoming().createdAt == existing().createdAt &&
+                       isValidRevisionBafendDocument(incoming());
+
+      allow delete: if isSignedIn() && isValidId(docId) && isAdmin();
+    }
+  }
+}

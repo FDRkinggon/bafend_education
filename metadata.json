@@ -1,0 +1,6 @@
+{
+  "name": "Aura Profile",
+  "description": "A secure identity and profile hub with Google Sign-In, Firestore cloud sync, and Gemini high-thinking profile advisor.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

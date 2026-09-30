@@ -1,0 +1,370 @@
+{
+  "curriculumName": "Cameroon Bilingual Secondary & High School E-Learning Curriculum",
+  "version": "2026.1",
+  "systems": [
+    {
+      "code": "ANGLOPHONE",
+      "name": "Anglophone Educational System (GCE)",
+      "levels": [
+        {
+          "code": "ORDINARY_LEVEL",
+          "name": "Ordinary Level (GCE O-Level / Forms 1–5)",
+          "streams": [
+            {
+              "code": "SCIENCE",
+              "name": "Science & Technology Stream",
+              "series": [
+                {
+                  "code": "OL_SCI_CORE",
+                  "name": "O-Level General Science & STEM",
+                  "description": "Core GCE Ordinary Level Science combination preparing for Advanced Level S1, S2, S3, and S4.",
+                  "subjects": [
+                    { "code": "0570", "name": "Mathematics", "coefficient": 5, "category": "Compulsory" },
+                    { "code": "0575", "name": "Additional Mathematics", "coefficient": 4, "category": "Core Science" },
+                    { "code": "0580", "name": "Physics", "coefficient": 4, "category": "Core Science" },
+                    { "code": "0515", "name": "Chemistry", "coefficient": 4, "category": "Core Science" },
+                    { "code": "0510", "name": "Biology", "coefficient": 4, "category": "Core Science" },
+                    { "code": "0595", "name": "Computer Science", "coefficient": 3, "category": "Core Science" },
+                    { "code": "0530", "name": "English Language", "coefficient": 5, "category": "Compulsory" },
+                    { "code": "0545", "name": "French", "coefficient": 3, "category": "Compulsory" },
+                    { "code": "0565", "name": "Human Biology", "coefficient": 3, "category": "Elective" },
+                    { "code": "0550", "name": "Geography", "coefficient": 3, "category": "Elective" },
+                    { "code": "0525", "name": "Economics", "coefficient": 3, "category": "Elective" },
+                    { "code": "0562", "name": "Citizenship Education", "coefficient": 2, "category": "Compulsory" }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "ART",
+              "name": "Arts, Humanities & Social Sciences Stream",
+              "series": [
+                {
+                  "code": "OL_ART_CORE",
+                  "name": "O-Level Arts, Languages & Social Sciences",
+                  "description": "Core GCE Ordinary Level Arts combination preparing for Advanced Level A1, A2, A3, A4, and A5.",
+                  "subjects": [
+                    { "code": "0530", "name": "English Language", "coefficient": 5, "category": "Compulsory" },
+                    { "code": "0535", "name": "Literature in English", "coefficient": 4, "category": "Core Arts" },
+                    { "code": "0560", "name": "History", "coefficient": 4, "category": "Core Arts" },
+                    { "code": "0550", "name": "Geography", "coefficient": 4, "category": "Core Arts" },
+                    { "code": "0525", "name": "Economics", "coefficient": 4, "category": "Core Arts" },
+                    { "code": "0545", "name": "French", "coefficient": 4, "category": "Compulsory" },
+                    { "code": "0570", "name": "Mathematics", "coefficient": 4, "category": "Compulsory" },
+                    { "code": "0585", "name": "Religious Studies", "coefficient": 3, "category": "Elective" },
+                    { "code": "0572", "name": "Logic", "coefficient": 3, "category": "Elective" },
+                    { "code": "0520", "name": "Commerce", "coefficient": 3, "category": "Elective" },
+                    { "code": "0562", "name": "Citizenship Education", "coefficient": 2, "category": "Compulsory" },
+                    { "code": "0595", "name": "Computer Science", "coefficient": 2, "category": "Elective" }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "ADVANCED_LEVEL",
+          "name": "Advanced Level (GCE A-Level / Lower & Upper Sixth)",
+          "streams": [
+            {
+              "code": "SCIENCE",
+              "name": "Science & Technology Stream",
+              "series": [
+                {
+                  "code": "S1",
+                  "name": "Series S1 (Pure Math, Physics & Chemistry)",
+                  "description": "Engineering, Polytechnic, Architecture & Physical Sciences track.",
+                  "subjects": [
+                    { "code": "0770", "name": "Pure Mathematics With Mechanics", "coefficient": 5, "category": "Principal" },
+                    { "code": "0780", "name": "Physics", "coefficient": 5, "category": "Principal" },
+                    { "code": "0715", "name": "Chemistry", "coefficient": 5, "category": "Principal" },
+                    { "code": "0765", "name": "Further Mathematics", "coefficient": 5, "category": "Specialty" },
+                    { "code": "0795", "name": "Computer Science", "coefficient": 4, "category": "Elective" }
+                  ]
+                },
+                {
+                  "code": "S2",
+                  "name": "Series S2 (Chemistry, Biology & Physics/Math)",
+                  "description": "Medicine, Pharmacy, Biomedical & Health Sciences track.",
+                  "subjects": [
+                    { "code": "0710", "name": "Biology", "coefficient": 5, "category": "Principal" },
+                    { "code": "0715", "name": "Chemistry", "coefficient": 5, "category": "Principal" },
+                    { "code": "0780", "name": "Physics", "coefficient": 5, "category": "Principal" },
+                    { "code": "0775", "name": "Pure Mathematics With Statistics", "coefficient": 5, "category": "Elective" },
+                    { "code": "0740", "name": "Food Science and Nutrition", "coefficient": 3, "category": "Elective" }
+                  ]
+                },
+                {
+                  "code": "S3",
+                  "name": "Series S3 (Biology, Chemistry & Geology/Geography)",
+                  "description": "Agronomy, Earth Sciences, Environmental & Life Sciences track.",
+                  "subjects": [
+                    { "code": "0710", "name": "Biology", "coefficient": 5, "category": "Principal" },
+                    { "code": "0715", "name": "Chemistry", "coefficient": 5, "category": "Principal" },
+                    { "code": "0755", "name": "Geology", "coefficient": 5, "category": "Principal" },
+                    { "code": "0750", "name": "Geography", "coefficient": 4, "category": "Elective" },
+                    { "code": "0796", "name": "Information and Communication Technology (ICT)", "coefficient": 4, "category": "Elective" }
+                  ]
+                },
+                {
+                  "code": "S4",
+                  "name": "Series S4 (Mathematics, Computer Science/ICT & Physics)",
+                  "description": "Software Engineering, Artificial Intelligence, Telecommunications & Data Science track.",
+                  "subjects": [
+                    { "code": "0770", "name": "Pure Mathematics With Mechanics", "coefficient": 5, "category": "Principal" },
+                    { "code": "0775", "name": "Pure Mathematics With Statistics", "coefficient": 5, "category": "Principal" },
+                    { "code": "0795", "name": "Computer Science", "coefficient": 5, "category": "Principal" },
+                    { "code": "0796", "name": "Information and Communication Technology (ICT)", "coefficient": 4, "category": "Specialty" },
+                    { "code": "0780", "name": "Physics", "coefficient": 5, "category": "Principal" },
+                    { "code": "0765", "name": "Further Mathematics", "coefficient": 5, "category": "Elective" }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "ART",
+              "name": "Arts, Humanities & Social Sciences Stream",
+              "series": [
+                {
+                  "code": "A1",
+                  "name": "Series A1 (Literature, History & French)",
+                  "description": "International Relations, Diplomacy, Law, Translation & Journalism track.",
+                  "subjects": [
+                    { "code": "0735", "name": "Literature in English", "coefficient": 5, "category": "Principal" },
+                    { "code": "0760", "name": "History", "coefficient": 5, "category": "Principal" },
+                    { "code": "0745", "name": "French", "coefficient": 5, "category": "Principal" },
+                    { "code": "0772", "name": "Philosophy", "coefficient": 4, "category": "Elective" }
+                  ]
+                },
+                {
+                  "code": "A2",
+                  "name": "Series A2 (History, Geography & Economics)",
+                  "description": "Economics, Public Administration, Governance & Development Studies track.",
+                  "subjects": [
+                    { "code": "0760", "name": "History", "coefficient": 5, "category": "Principal" },
+                    { "code": "0750", "name": "Geography", "coefficient": 5, "category": "Principal" },
+                    { "code": "0725", "name": "Economics", "coefficient": 5, "category": "Principal" },
+                    { "code": "0772", "name": "Philosophy", "coefficient": 4, "category": "Elective" }
+                  ]
+                },
+                {
+                  "code": "A3",
+                  "name": "Series A3 (Literature, History & Religious Studies / Philosophy)",
+                  "description": "Law, Magistracy, Humanities, Ethics & Education track.",
+                  "subjects": [
+                    { "code": "0735", "name": "Literature in English", "coefficient": 5, "category": "Principal" },
+                    { "code": "0760", "name": "History", "coefficient": 5, "category": "Principal" },
+                    { "code": "0785", "name": "Religious Studies", "coefficient": 5, "category": "Principal" },
+                    { "code": "0772", "name": "Philosophy", "coefficient": 4, "category": "Principal" }
+                  ]
+                },
+                {
+                  "code": "A4",
+                  "name": "Series A4 (Economics, Pure Mathematics & History/Geography/ICT)",
+                  "description": "Corporate Finance, Banking, Business Analytics, Accounting & Management track.",
+                  "subjects": [
+                    { "code": "0725", "name": "Economics", "coefficient": 5, "category": "Principal" },
+                    { "code": "0775", "name": "Pure Mathematics With Statistics", "coefficient": 5, "category": "Principal" },
+                    { "code": "0750", "name": "Geography", "coefficient": 5, "category": "Principal" },
+                    { "code": "0760", "name": "History", "coefficient": 4, "category": "Elective" },
+                    { "code": "0796", "name": "Information and Communication Technology (ICT)", "coefficient": 4, "category": "Elective" }
+                  ]
+                },
+                {
+                  "code": "A5",
+                  "name": "Series A5 (Philosophy, Literature & French / ICT)",
+                  "description": "Mass Communication, Sociology, Political Science & Bilingual Studies track.",
+                  "subjects": [
+                    { "code": "0772", "name": "Philosophy", "coefficient": 5, "category": "Principal" },
+                    { "code": "0735", "name": "Literature in English", "coefficient": 5, "category": "Principal" },
+                    { "code": "0745", "name": "French", "coefficient": 5, "category": "Principal" },
+                    { "code": "0796", "name": "Information and Communication Technology (ICT)", "coefficient": 4, "category": "Elective" }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "FRANCOPHONE",
+      "name": "Francophone Educational System (OBC / ESG)",
+      "levels": [
+        {
+          "code": "ORDINARY_LEVEL",
+          "name": "1er Cycle Secondaire (6ème à 3ème / BEPC)",
+          "streams": [
+            {
+              "code": "SCIENCE",
+              "name": "Orientation Scientifique & Technologique (1er Cycle)",
+              "series": [
+                {
+                  "code": "BEPC_SCI",
+                  "name": "3ème / BEPC Dominante Scientifique",
+                  "description": "Préparation au BEPC et à l'entrée en Seconde C / TI.",
+                  "subjects": [
+                    { "code": "MATH-1C", "name": "Mathématiques", "coefficient": 4, "category": "Obligatoire" },
+                    { "code": "PCT-1C", "name": "Physique-Chimie-Technologie (PCT)", "coefficient": 3, "category": "Fondamental" },
+                    { "code": "SVT-1C", "name": "Sciences de la Vie et de la Terre (SVTEEHB)", "coefficient": 3, "category": "Fondamental" },
+                    { "code": "INFO-1C", "name": "Informatique", "coefficient": 2, "category": "Fondamental" },
+                    { "code": "FR-1C", "name": "Français (Étude de Texte, Dictée, Rédaction)", "coefficient": 4, "category": "Obligatoire" },
+                    { "code": "ANG-1C", "name": "Anglais", "coefficient": 3, "category": "Obligatoire" },
+                    { "code": "HG-1C", "name": "Histoire-Géographie", "coefficient": 2, "category": "Obligatoire" },
+                    { "code": "ECM-1C", "name": "Éducation à la Citoyenneté et à la Morale (ECM)", "coefficient": 2, "category": "Obligatoire" }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "ART",
+              "name": "Orientation Littéraire & Langues (1er Cycle)",
+              "series": [
+                {
+                  "code": "BEPC_LIT",
+                  "name": "3ème / BEPC Allemand, Espagnol, Chinois, Arabe & Lettres",
+                  "description": "Préparation au BEPC et à l'entrée en Seconde A4 / ABI.",
+                  "subjects": [
+                    { "code": "FR-1C", "name": "Français (Littérature, Dictée, Expression Écrite)", "coefficient": 5, "category": "Obligatoire" },
+                    { "code": "ANG-1C", "name": "Anglais", "coefficient": 3, "category": "Obligatoire" },
+                    { "code": "LV2-ESP", "name": "Espagnol (Langue Vivante II)", "coefficient": 3, "category": "Spécialité" },
+                    { "code": "LV2-ALL", "name": "Allemand (Langue Vivante II)", "coefficient": 3, "category": "Spécialité" },
+                    { "code": "LV2-CHI", "name": "Chinois / Arabe / Italien (LV2)", "coefficient": 3, "category": "Optionnel" },
+                    { "code": "HG-1C", "name": "Histoire-Géographie", "coefficient": 3, "category": "Fondamental" },
+                    { "code": "ECM-1C", "name": "Éducation à la Citoyenneté et à la Morale (ECM)", "coefficient": 2, "category": "Obligatoire" },
+                    { "code": "MATH-1C", "name": "Mathématiques", "coefficient": 4, "category": "Obligatoire" },
+                    { "code": "INFO-1C", "name": "Informatique", "coefficient": 2, "category": "Obligatoire" }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "ADVANCED_LEVEL",
+          "name": "2nd Cycle (Seconde, Première / Probatoire & Terminale / Baccalauréat)",
+          "streams": [
+            {
+              "code": "SCIENCE",
+              "name": "Séries Scientifiques & Technologiques (C, D, TI, E)",
+              "series": [
+                {
+                  "code": "SERIE_C",
+                  "name": "Série C (Mathématiques & Sciences Physiques)",
+                  "description": "Polytechnique, Ingénierie, Architecture, Aéronautique & Sciences Exactes.",
+                  "subjects": [
+                    { "code": "MATH-C", "name": "Mathématiques", "coefficient": 7, "category": "Spécialité" },
+                    { "code": "PHYS-C", "name": "Physique", "coefficient": 5, "category": "Spécialité" },
+                    { "code": "CHIM-C", "name": "Chimie", "coefficient": 3, "category": "Spécialité" },
+                    { "code": "SVT-C", "name": "Sciences de la Vie et de la Terre (SVTEEHB)", "coefficient": 2, "category": "Fondamental" },
+                    { "code": "INFO-C", "name": "Informatique", "coefficient": 2, "category": "Fondamental" },
+                    { "code": "PHILO-C", "name": "Philosophie", "coefficient": 2, "category": "Obligatoire" },
+                    { "code": "FR-C", "name": "Littérature / Français", "coefficient": 3, "category": "Obligatoire" },
+                    { "code": "ANG-C", "name": "Anglais", "coefficient": 3, "category": "Obligatoire" },
+                    { "code": "HG-C", "name": "Histoire-Géographie", "coefficient": 2, "category": "Obligatoire" },
+                    { "code": "ECM-C", "name": "Éducation à la Citoyenneté (ECM)", "coefficient": 2, "category": "Obligatoire" }
+                  ]
+                },
+                {
+                  "code": "SERIE_D",
+                  "name": "Série D (SVTEEHB, Chimie, Physique & Mathématiques)",
+                  "description": "Médecine (FMSB), Pharmacie, Biomédical, Agronomie (FASA) & Biotechnologies.",
+                  "subjects": [
+                    { "code": "SVT-D", "name": "Sciences de la Vie et de la Terre (SVTEEHB)", "coefficient": 5, "category": "Spécialité" },
+                    { "code": "MATH-D", "name": "Mathématiques", "coefficient": 4, "category": "Spécialité" },
+                    { "code": "PHYS-D", "name": "Physique", "coefficient": 3, "category": "Spécialité" },
+                    { "code": "CHIM-D", "name": "Chimie", "coefficient": 3, "category": "Spécialité" },
+                    { "code": "INFO-D", "name": "Informatique", "coefficient": 2, "category": "Fondamental" },
+                    { "code": "PHILO-D", "name": "Philosophie", "coefficient": 2, "category": "Obligatoire" },
+                    { "code": "FR-D", "name": "Littérature / Français", "coefficient": 3, "category": "Obligatoire" },
+                    { "code": "ANG-D", "name": "Anglais", "coefficient": 3, "category": "Obligatoire" },
+                    { "code": "HG-D", "name": "Histoire-Géographie", "coefficient": 2, "category": "Obligatoire" },
+                    { "code": "ECM-D", "name": "Éducation à la Citoyenneté (ECM)", "coefficient": 2, "category": "Obligatoire" }
+                  ]
+                },
+                {
+                  "code": "SERIE_TI",
+                  "name": "Série TI (Technologies de l'Information & Génie Logiciel)",
+                  "description": "Génie Logiciel, Intelligence Artificielle, Réseaux, Cybersécurité & Télécoms.",
+                  "subjects": [
+                    { "code": "INFO-TI", "name": "Algorithmique, Programmation & Bases de Données", "coefficient": 6, "category": "Spécialité" },
+                    { "code": "RES-TI", "name": "Architecture des Ordinateurs, Réseaux & Systèmes", "coefficient": 4, "category": "Spécialité" },
+                    { "code": "MATH-TI", "name": "Mathématiques", "coefficient": 5, "category": "Spécialité" },
+                    { "code": "PHYS-TI", "name": "Physique", "coefficient": 4, "category": "Spécialité" },
+                    { "code": "CHIM-TI", "name": "Chimie", "coefficient": 2, "category": "Fondamental" },
+                    { "code": "FR-TI", "name": "Littérature / Français", "coefficient": 3, "category": "Obligatoire" },
+                    { "code": "ANG-TI", "name": "Anglais", "coefficient": 3, "category": "Obligatoire" },
+                    { "code": "PHILO-TI", "name": "Philosophie", "coefficient": 2, "category": "Obligatoire" }
+                  ]
+                },
+                {
+                  "code": "SERIE_E",
+                  "name": "Série E (Mathématiques & Construction Mécanique)",
+                  "description": "Génie Mécanique, Génie Industriel, Électromécanique & Polytechnique.",
+                  "subjects": [
+                    { "code": "MATH-E", "name": "Mathématiques", "coefficient": 6, "category": "Spécialité" },
+                    { "code": "PHYS-E", "name": "Sciences Physiques", "coefficient": 5, "category": "Spécialité" },
+                    { "code": "MECA-E", "name": "Construction & Fabrication Mécanique", "coefficient": 5, "category": "Spécialité" },
+                    { "code": "INFO-E", "name": "Informatique", "coefficient": 2, "category": "Fondamental" },
+                    { "code": "FR-E", "name": "Français", "coefficient": 3, "category": "Obligatoire" },
+                    { "code": "ANG-E", "name": "Anglais", "coefficient": 3, "category": "Obligatoire" }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "ART",
+              "name": "Séries Littéraires, Langues & Sciences Humaines (A4, A1, A2, A3, ABI)",
+              "series": [
+                {
+                  "code": "SERIE_A4",
+                  "name": "Série A4 (Allemand / Espagnol / Arabe / Chinois, Philosophie & Lettres)",
+                  "description": "Droit, Diplomatie (IRIC), Administration (ENAM), Journalisme (ESSTIC) & Langues.",
+                  "subjects": [
+                    { "code": "LIT-A4", "name": "Littérature et Langue Française", "coefficient": 5, "category": "Spécialité" },
+                    { "code": "PHILO-A4", "name": "Philosophie", "coefficient": 5, "category": "Spécialité" },
+                    { "code": "LV2-A4", "name": "Langue Vivante II (Espagnol / Allemand / Arabe / Chinois)", "coefficient": 4, "category": "Spécialité" },
+                    { "code": "ANG-A4", "name": "Anglais", "coefficient": 4, "category": "Spécialité" },
+                    { "code": "HIST-A4", "name": "Histoire", "coefficient": 3, "category": "Fondamental" },
+                    { "code": "GEO-A4", "name": "Géographie", "coefficient": 3, "category": "Fondamental" },
+                    { "code": "ECM-A4", "name": "Éducation à la Citoyenneté (ECM)", "coefficient": 2, "category": "Obligatoire" },
+                    { "code": "MATH-A4", "name": "Mathématiques Appliquées", "coefficient": 2, "category": "Obligatoire" },
+                    { "code": "INFO-A4", "name": "Informatique", "coefficient": 2, "category": "Obligatoire" }
+                  ]
+                },
+                {
+                  "code": "SERIE_ABI",
+                  "name": "Série ABI (Baccalauréat Bilingue & Lettres Modernes)",
+                  "description": "Traduction & Interprétation (ASTI), Relations Internationales & Droit Bilingue.",
+                  "subjects": [
+                    { "code": "ANG-ABI", "name": "Anglais Intensif & Literature in English", "coefficient": 5, "category": "Spécialité" },
+                    { "code": "LIT-ABI", "name": "Littérature et Langue Française", "coefficient": 5, "category": "Spécialité" },
+                    { "code": "PHILO-ABI", "name": "Philosophie", "coefficient": 4, "category": "Spécialité" },
+                    { "code": "HG-ABI", "name": "Histoire-Géographie", "coefficient": 4, "category": "Fondamental" },
+                    { "code": "LV2-ABI", "name": "Langue Vivante II (Espagnol / Allemand)", "coefficient": 3, "category": "Fondamental" },
+                    { "code": "MATH-ABI", "name": "Mathématiques", "coefficient": 2, "category": "Obligatoire" },
+                    { "code": "INFO-ABI", "name": "Informatique", "coefficient": 2, "category": "Obligatoire" }
+                  ]
+                },
+                {
+                  "code": "SERIE_A1_A2_A3",
+                  "name": "Séries A1 / A2 / A3 (Lettres Classiques: Latin, Grec & Humanités)",
+                  "description": "Droit, Magistrature, Lettres Classiques, Philosophie & Sciences Politiques.",
+                  "subjects": [
+                    { "code": "LAT-A", "name": "Latin & Civilisation Classique", "coefficient": 4, "category": "Spécialité" },
+                    { "code": "GREC-A", "name": "Grec Ancien / Langue Vivante II", "coefficient": 4, "category": "Spécialité" },
+                    { "code": "LIT-A", "name": "Littérature Française", "coefficient": 5, "category": "Spécialité" },
+                    { "code": "PHILO-A", "name": "Philosophie", "coefficient": 5, "category": "Spécialité" },
+                    { "code": "ANG-A", "name": "Anglais", "coefficient": 3, "category": "Obligatoire" },
+                    { "code": "HG-A", "name": "Histoire-Géographie", "coefficient": 4, "category": "Fondamental" },
+                    { "code": "MATH-A3", "name": "Mathématiques (Renforcé A3)", "coefficient": 4, "category": "Spécialité" }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

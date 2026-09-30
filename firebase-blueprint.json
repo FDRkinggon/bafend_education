@@ -1,0 +1,534 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Represents an authenticated user's personal profile and e-learning role onboarding details synchronized with Firestore.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The unique Firebase Auth UID of the profile owner."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The user's display name (1 to 100 characters)."
+        },
+        "email": {
+          "type": "string",
+          "description": "The user's email address from Google Sign-In."
+        },
+        "headline": {
+          "type": "string",
+          "description": "Short professional or personal tagline (up to 160 characters)."
+        },
+        "bio": {
+          "type": "string",
+          "description": "Detailed biography or about section (up to 1000 characters)."
+        },
+        "location": {
+          "type": "string",
+          "description": "User's city, region, or country (up to 120 characters)."
+        },
+        "roleTitle": {
+          "type": "string",
+          "description": "Current role, occupation, or title (up to 120 characters)."
+        },
+        "website": {
+          "type": "string",
+          "description": "Personal website or portfolio link (up to 250 characters)."
+        },
+        "statusMessage": {
+          "type": "string",
+          "description": "Current availability or status badge text (up to 160 characters)."
+        },
+        "photoUrl": {
+          "type": "string",
+          "description": "URL to the user's profile avatar photo (up to 500 characters)."
+        },
+        "actorRole": {
+          "type": "string",
+          "enum": [
+            "ADMIN",
+            "VISITOR",
+            "STUDENT",
+            "TEACHER",
+            "SCHOOL",
+            "PARENT"
+          ],
+          "description": "Selected platform role (defaults to ADMIN for fokoufdr@gmail.com, VISITOR for all other users)."
+        },
+        "accountStatus": {
+          "type": "string",
+          "enum": [
+            "ACTIVE",
+            "PENDING",
+            "SUSPENDED",
+            "BLOCKED"
+          ],
+          "description": "User account status managed by the administrator (ACTIVE by default; PENDING, SUSPENDED, or BLOCKED restrict navigation and profile actions)."
+        },
+        "onboardingCompleted": {
+          "type": "boolean",
+          "description": "Whether the user has completed the post-signup role selection questionnaire."
+        },
+        "educationSystem": {
+          "type": "string",
+          "description": "Educational system for students or teachers (e.g., ANGLOPHONE, FRANCOPHONE, BILINGUAL)."
+        },
+        "studentLevel": {
+          "type": "string",
+          "description": "Academic level for students (ORDINARY_LEVEL or ADVANCED_LEVEL)."
+        },
+        "studentStream": {
+          "type": "string",
+          "description": "Academic specialization for students (SCIENCE or ART)."
+        },
+        "studentSeries": {
+          "type": "string",
+          "description": "Selected academic series from the JSON curriculum (e.g., S1, S2, S3, S4, A1..A5, SERIE_C, SERIE_D, SERIE_TI, SERIE_A4; up to 100 characters)."
+        },
+        "selectedSubjects": {
+          "type": "string",
+          "description": "Serialized pipe-separated list of subjects selected by the user from the JSON curriculum (up to 1200 characters)."
+        },
+        "schoolName": {
+          "type": "string",
+          "description": "Selected or custom school name for students or school accounts (up to 200 characters)."
+        },
+        "schoolOwnership": {
+          "type": "string",
+          "description": "Whether a school is PRIVATE or PUBLIC (up to 40 characters)."
+        },
+        "schoolAge": {
+          "type": "string",
+          "description": "Age or years of existence of the school (up to 40 characters)."
+        },
+        "schoolEmail": {
+          "type": "string",
+          "description": "Official contact email of the school (up to 200 characters)."
+        },
+        "schoolFacebookUrl": {
+          "type": "string",
+          "description": "Facebook page URL of the school (up to 300 characters)."
+        },
+        "teachingYears": {
+          "type": "string",
+          "description": "Number of years of teaching experience for teachers (up to 40 characters)."
+        },
+        "teacherSchools": {
+          "type": "string",
+          "description": "Serialized list of schools where the teacher has taught (up to 500 characters)."
+        },
+        "pseudonym": {
+          "type": "string",
+          "description": "Optional pseudonym for teachers wishing to remain anonymous (up to 100 characters)."
+        },
+        "phoneNumbers": {
+          "type": "string",
+          "description": "Serialized list of optional phone numbers for teachers, schools, or parents (up to 500 characters)."
+        },
+        "childIds": {
+          "type": "string",
+          "description": "Serialized list of 1 to 20 child IDs for parent accounts (up to 600 characters)."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when the profile was first created via FieldValue.serverTimestamp()."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when the profile was last updated via FieldValue.serverTimestamp()."
+        }
+      },
+      "required": [
+        "userId",
+        "displayName",
+        "email",
+        "headline",
+        "bio",
+        "location",
+        "roleTitle",
+        "website",
+        "statusMessage",
+        "photoUrl",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "AppActivity": {
+      "title": "AppActivity",
+      "description": "Represents a logged user or system activity event within the app, viewable by the activity owner and administrators in the Admin Portal Dashboard.",
+      "type": "object",
+      "properties": {
+        "activityId": {
+          "type": "string",
+          "description": "Unique identifier for the activity document (1 to 128 characters)."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Firebase Auth UID of the user who triggered the activity."
+        },
+        "userDisplayName": {
+          "type": "string",
+          "description": "Display name of the user who triggered the activity (1 to 100 characters)."
+        },
+        "userEmail": {
+          "type": "string",
+          "description": "Email address of the user who triggered the activity (up to 200 characters)."
+        },
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "AUTH_SIGN_IN",
+            "PROFILE_CREATED",
+            "ROLE_ONBOARDING_COMPLETED",
+            "STUDENT_ASSESSMENT_LOGGED",
+            "STUDENT_ORIENTATION_ANALYZED",
+            "PROFILE_UPDATED",
+            "STATUS_CHANGED",
+            "AI_ADVISOR_RUN",
+            "AI_SUGGESTION_APPLIED",
+            "ADMIN_AUDIT_ACTION",
+            "USER_ROLE_CHANGED",
+            "USER_STATUS_CHANGED",
+            "USER_DELETED",
+            "DB_CONNECTION_ATTEMPT",
+            "DB_OPERATION_SUCCESS",
+            "DB_OPERATION_FAILURE",
+            "DB_INJECTION_BLOCKED",
+            "AUTH_SIGN_OUT"
+          ],
+          "description": "Categorized type of the activity or database security event."
+        },
+        "ipAddress": {
+          "type": "string",
+          "description": "Client IP address associated with the database connection or request (up to 100 characters)."
+        },
+        "targetPath": {
+          "type": "string",
+          "description": "Firestore collection or document path targeted by the operation (up to 200 characters)."
+        },
+        "dbStatus": {
+          "type": "string",
+          "description": "Database operation outcome: ATTEMPT, SUCCESS, FAILURE, or INJECTION_BLOCKED (up to 60 characters)."
+        },
+        "title": {
+          "type": "string",
+          "description": "Short summary title of the activity event (1 to 160 characters)."
+        },
+        "details": {
+          "type": "string",
+          "description": "Detailed metadata or description of the activity (up to 1000 characters)."
+        },
+        "severity": {
+          "type": "string",
+          "enum": [
+            "INFO",
+            "SUCCESS",
+            "HIGHLIGHT",
+            "SECURITY"
+          ],
+          "description": "Visual and operational severity level of the activity."
+        },
+        "reviewStatus": {
+          "type": "string",
+          "enum": [
+            "RECORDED",
+            "REVIEWED",
+            "FLAGGED"
+          ],
+          "description": "Admin review status of the activity event."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when the activity occurred via FieldValue.serverTimestamp()."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when the activity was created or last updated via FieldValue.serverTimestamp()."
+        }
+      },
+      "required": [
+        "activityId",
+        "userId",
+        "userDisplayName",
+        "userEmail",
+        "eventType",
+        "title",
+        "details",
+        "severity",
+        "reviewStatus",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "AdminRecord": {
+      "title": "AdminRecord",
+      "description": "Trusted administrator registry document keyed by Firebase Auth UID.",
+      "type": "object",
+      "properties": {
+        "adminId": {
+          "type": "string",
+          "description": "Firebase Auth UID of the administrator."
+        },
+        "email": {
+          "type": "string",
+          "description": "Verified email address of the administrator (1 to 200 characters)."
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "SUPER_ADMIN",
+            "AUDITOR"
+          ],
+          "description": "Administrative role tier."
+        },
+        "grantedBy": {
+          "type": "string",
+          "description": "UID of the administrator who provisioned this record."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when admin access was granted via FieldValue.serverTimestamp()."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when the admin record was last updated via FieldValue.serverTimestamp()."
+        }
+      },
+      "required": [
+        "adminId",
+        "email",
+        "role",
+        "grantedBy",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "CurriculumSubjectRecord": {
+      "title": "CurriculumSubjectRecord",
+      "description": "Represents a subject added by an administrator under a specific educational subsystem with full academic characteristics.",
+      "type": "object",
+      "properties": {
+        "subjectId": {
+          "type": "string",
+          "description": "Unique identifier for the curriculum subject."
+        },
+        "code": {
+          "type": "string",
+          "description": "Official or custom subject code (e.g., 0770, INFO-AI)."
+        },
+        "name": {
+          "type": "string",
+          "description": "Full display name of the subject."
+        },
+        "coefficient": {
+          "type": "integer",
+          "description": "Academic weight/coefficient of the subject (1 to 10)."
+        },
+        "category": {
+          "type": "string",
+          "description": "Subject category (e.g., Compulsory, Principal, Core, Spécialité, Elective, Practical)."
+        },
+        "systemCode": {
+          "type": "string",
+          "description": "Subsystem code (ANGLOPHONE, FRANCOPHONE, or BILINGUAL)."
+        },
+        "levelCode": {
+          "type": "string",
+          "description": "Academic level code (ORDINARY_LEVEL or ADVANCED_LEVEL)."
+        },
+        "streamCode": {
+          "type": "string",
+          "description": "Academic stream code (SCIENCE or ART)."
+        },
+        "seriesCode": {
+          "type": "string",
+          "description": "Series or combination code (e.g., S1, S2, A1, SERIE_C, SERIE_D, GENERAL)."
+        },
+        "seriesName": {
+          "type": "string",
+          "description": "Display label of the series."
+        },
+        "description": {
+          "type": "string",
+          "description": "Subject characteristics, syllabus summary, and exam structure."
+        },
+        "createdByEmail": {
+          "type": "string",
+          "description": "Email of the administrator who created the subject."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when the subject was added."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when the subject was last updated."
+        }
+      },
+      "required": [
+        "subjectId",
+        "code",
+        "name",
+        "coefficient",
+        "category",
+        "systemCode",
+        "levelCode",
+        "streamCode",
+        "seriesCode",
+        "seriesName",
+        "description",
+        "createdByEmail",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "RevisionBafendDocument": {
+      "title": "RevisionBafendDocument",
+      "description": "Represents an admin-uploaded PDF revision document packaged with the proprietary .bafend extension for a specific subject.",
+      "type": "object",
+      "properties": {
+        "docId": {
+          "type": "string",
+          "description": "Unique identifier for the .bafend revision document."
+        },
+        "title": {
+          "type": "string",
+          "description": "Document title shown in the Revision Hub."
+        },
+        "description": {
+          "type": "string",
+          "description": "Summary of revision topics covered in the document."
+        },
+        "systemCode": {
+          "type": "string",
+          "description": "Subsystem code (ANGLOPHONE, FRANCOPHONE, or BILINGUAL)."
+        },
+        "levelCode": {
+          "type": "string",
+          "description": "Academic level code (ORDINARY_LEVEL or ADVANCED_LEVEL)."
+        },
+        "streamCode": {
+          "type": "string",
+          "description": "Stream code (SCIENCE or ART)."
+        },
+        "seriesCode": {
+          "type": "string",
+          "description": "Series code (e.g., S1, SERIE_C, ALL)."
+        },
+        "subjectCode": {
+          "type": "string",
+          "description": "Code of the subject this PDF belongs to."
+        },
+        "subjectName": {
+          "type": "string",
+          "description": "Name of the subject this PDF belongs to."
+        },
+        "subjectCategory": {
+          "type": "string",
+          "description": "Category of the subject (e.g., Principal, Compulsory)."
+        },
+        "coefficient": {
+          "type": "integer",
+          "description": "Subject coefficient."
+        },
+        "originalPdfName": {
+          "type": "string",
+          "description": "Original uploaded PDF filename before conversion."
+        },
+        "bafendFileName": {
+          "type": "string",
+          "description": "Assigned filename with the mandatory .bafend extension."
+        },
+        "pageCount": {
+          "type": "integer",
+          "description": "Total number of pages in the .bafend PDF document."
+        },
+        "fileSizeBytes": {
+          "type": "integer",
+          "description": "Size of the .bafend file in bytes."
+        },
+        "bafendBase64Payload": {
+          "type": "string",
+          "description": "Base64-encoded .bafend file binary payload for cross-device download and offline caching."
+        },
+        "uploadedByEmail": {
+          "type": "string",
+          "description": "Administrator email who uploaded the PDF."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when uploaded."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when last updated."
+        }
+      },
+      "required": [
+        "docId",
+        "title",
+        "description",
+        "systemCode",
+        "levelCode",
+        "streamCode",
+        "seriesCode",
+        "subjectCode",
+        "subjectName",
+        "subjectCategory",
+        "coefficient",
+        "originalPdfName",
+        "bafendFileName",
+        "pageCount",
+        "fileSizeBytes",
+        "bafendBase64Payload",
+        "uploadedByEmail",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": {
+        "$ref": "#/entities/UserProfile"
+      },
+      "description": "Stores isolated user profile and role onboarding documents keyed by the authenticated Firebase Auth UID, readable by the owner or an administrator."
+    },
+    "/activities/{activityId}": {
+      "schema": {
+        "$ref": "#/entities/AppActivity"
+      },
+      "description": "Stores application-wide activity audit events created by authenticated users and monitored globally in the Admin Portal Dashboard."
+    },
+    "/admins/{adminId}": {
+      "schema": {
+        "$ref": "#/entities/AdminRecord"
+      },
+      "description": "Stores trusted administrator role documents keyed by Firebase Auth UID."
+    },
+    "/curriculum_subjects/{subjectId}": {
+      "schema": {
+        "$ref": "#/entities/CurriculumSubjectRecord"
+      },
+      "description": "Stores admin-created curriculum subjects under any subsystem with their characteristics."
+    },
+    "/revision_documents/{docId}": {
+      "schema": {
+        "$ref": "#/entities/RevisionBafendDocument"
+      },
+      "description": "Stores admin-uploaded PDF revision documents assigned the .bafend extension for browsing and offline download."
+    }
+  }
+}
